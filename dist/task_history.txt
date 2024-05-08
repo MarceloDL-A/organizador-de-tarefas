@@ -1,0 +1,32 @@
+2024-05-08 10:54:56 - Task created: a
+2024-05-08 10:55:01 - Task deleted: a
+2024-05-08 10:55:08 - Task created: a
+2024-05-08 10:55:13 - Subtask added to a: b
+2024-05-08 10:55:20 - Subtask added to a: c
+2024-05-08 10:55:26 - Task completed: b
+2024-05-08 10:55:29 - Task completed: c
+2024-05-08 10:55:32 - Task completed: a
+2024-05-08 10:55:32 - Task reopened: a
+2024-05-08 10:55:33 - Task reopened: b
+2024-05-08 10:55:34 - Task completed: b
+2024-05-08 10:55:35 - Task reopened: c
+2024-05-08 10:55:36 - Task completed: c
+2024-05-08 10:55:37 - Task reopened: c
+2024-05-08 10:55:37 - Task completed: c
+2024-05-08 10:55:39 - Task reopened: b
+2024-05-08 10:55:39 - Task completed: b
+2024-05-08 10:55:42 - Task reopened: c
+2024-05-08 10:55:42 - Task completed: c
+2024-05-08 10:55:44 - Task reopened: b
+2024-05-08 10:55:44 - Task completed: b
+2024-05-08 11:07:57 - Error loading tasks: 'date_modified'
+2024-05-08 11:07:57 - Unhandled Exception: NULL main window
+2024-05-08 11:08:50 - Error loading tasks: 'date_modified'
+2024-05-08 11:12:57 - Task reopened: c
+2024-05-08 11:12:58 - Task reopened: b
+2024-05-08 11:12:59 - Task completed: c
+2024-05-08 11:12:59 - Task completed: b
+2024-05-08 11:13:00 - Subtask deleted from a: b
+2024-05-08 11:13:01 - Subtask deleted from a: c
+2024-05-08 11:13:03 - Task completed: a
+2024-05-08 11:13:07 - Task deleted: a
