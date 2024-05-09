@@ -1,0 +1,5 @@
+2024-05-08 22:26:23 - Error loading tasks: Expecting value: line 1 column 1 (char 0)
+2024-05-08 22:30:51 - Error loading tasks: Expecting value: line 1 column 1 (char 0)
+2024-05-08 22:30:51 - Error: Unhandled Exception: NULL main window
+2024-05-08 23:05:04 - Task created: a
+2024-05-08 23:05:06 - Task created: b
