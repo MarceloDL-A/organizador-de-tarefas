@@ -72,6 +72,15 @@ class TaskOrganizerApp(ThemedTk):
         self.save_tasks()
         log_history(self.history_file, f"Subtask added to {parent_task.title}: {subtask_title}")
 
+    def edit_notes(self, task):
+        notes = simpledialog.askstring("Edit Notes", "Enter notes:", initialvalue=task.notes)
+        if notes is not None:
+            task.notes = notes
+            task.update_date_modified()
+            self.update_task_list()
+            self.save_tasks()
+            log_history(self.history_file, f"Notes updated for {task.title}")
+
     def delete_task(self, task, parent_task=None):
         if parent_task:
             parent_task.subtasks.remove(task)
@@ -88,61 +97,52 @@ class TaskOrganizerApp(ThemedTk):
             widget.destroy()
 
         for task in self.tasks:
-            task_frame = ttk.Frame(self.task_frame, relief=tk.RAISED, borderwidth=1)
-            task_frame.pack(fill=tk.X, padx=5, pady=5)
+            self._create_task_frame(self.task_frame, task)
 
-            task_checkbox_var = tk.BooleanVar(value=task.is_done)
-            task_checkbox = ttk.Checkbutton(
-                task_frame,
-                text=f"{task.title}",
-                variable=task_checkbox_var,
-                command=lambda t=task: self.toggle_task(t)
-            )
-            task_checkbox.pack(side=tk.LEFT, padx=10)
+    def _create_task_frame(self, parent_frame, task, indent=0):
+        task_frame = ttk.Frame(parent_frame, relief=tk.RAISED, borderwidth=1)
+        task_frame.pack(fill=tk.X, padx=(indent, 5), pady=5)
 
-            add_subtask_button = ttk.Button(
-                task_frame,
-                text="Add Subtask",
-                command=lambda t=task: self.add_subtask(t)
-            )
-            add_subtask_button.pack(side=tk.RIGHT, padx=5, pady=5)
+        task_checkbox_var = tk.BooleanVar(value=task.is_done)
+        task_checkbox = ttk.Checkbutton(
+            task_frame,
+            text=f"{task.title}",
+            variable=task_checkbox_var,
+            command=lambda t=task: self.toggle_task(t)
+        )
+        task_checkbox.pack(side=tk.LEFT, padx=10)
 
-            delete_task_button = ttk.Button(
-                task_frame,
-                text="Delete",
-                command=lambda t=task: self.delete_task(t)
-            )
-            delete_task_button.pack(side=tk.RIGHT, padx=5, pady=5)
+        add_subtask_button = ttk.Button(
+            task_frame,
+            text="Add Subtask",
+            command=lambda t=task: self.add_subtask(t)
+        )
+        add_subtask_button.pack(side=tk.RIGHT, padx=5, pady=5)
 
-            Tooltip.bind(task_checkbox, f"Created: {task.date_created}\nModified: {task.date_modified}")
+        notes_button = ttk.Button(
+            task_frame,
+            text="Notes",
+            command=lambda t=task: self.edit_notes(t)
+        )
+        notes_button.pack(side=tk.RIGHT, padx=5, pady=5)
 
-            if task.subtasks:
-                completed_subtasks = sum(1 for subtask in task.subtasks if subtask.is_done)
-                progress = int((completed_subtasks / len(task.subtasks)) * 100)
-                progress_bar = ttk.Progressbar(task_frame, length=100, value=progress)
-                progress_bar.pack(side=tk.RIGHT, padx=10)
+        delete_task_button = ttk.Button(
+            task_frame,
+            text="Delete",
+            command=lambda t=task: self.delete_task(t)
+        )
+        delete_task_button.pack(side=tk.RIGHT, padx=5, pady=5)
 
-                for subtask in task.subtasks:
-                    subtask_frame = ttk.Frame(self.task_frame)
-                    subtask_frame.pack(fill=tk.X, padx=30, pady=2)
+        Tooltip.bind(task_checkbox, f"Created: {task.date_created}\nModified: {task.date_modified}")
 
-                    subtask_checkbox_var = tk.BooleanVar(value=subtask.is_done)
-                    subtask_checkbox = ttk.Checkbutton(
-                        subtask_frame,
-                        text=f"- {subtask.title}",
-                        variable=subtask_checkbox_var,
-                        command=lambda st=subtask: self.toggle_task(st)
-                    )
-                    subtask_checkbox.pack(side=tk.LEFT)
+        if task.subtasks:
+            completed_subtasks = sum(1 for subtask in task.subtasks if subtask.is_done)
+            progress = int((completed_subtasks / len(task.subtasks)) * 100)
+            progress_bar = ttk.Progressbar(task_frame, length=100, value=progress)
+            progress_bar.pack(side=tk.RIGHT, padx=10)
 
-                    delete_subtask_button = ttk.Button(
-                        subtask_frame,
-                        text="Delete",
-                        command=lambda st=subtask, pt=task: self.delete_task(st, pt)
-                    )
-                    delete_subtask_button.pack(side=tk.RIGHT, padx=5, pady=2)
-
-                    Tooltip.bind(subtask_checkbox, f"Created: {subtask.date_created}\nModified: {subtask.date_modified}")
+            for subtask in task.subtasks:
+                self._create_task_frame(parent_frame, subtask, indent + 20)
 
     def save_tasks(self):
         try:
