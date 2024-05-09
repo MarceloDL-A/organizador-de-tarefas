@@ -1,9 +1,26 @@
 2024-05-08 22:26:23 - Error loading tasks: Expecting value: line 1 column 1 (char 0)
 2024-05-08 22:30:51 - Error loading tasks: Expecting value: line 1 column 1 (char 0)
 2024-05-08 22:30:51 - Error: Unhandled Exception: NULL main window
-2024-05-09 00:01:55 - Task created: a
-2024-05-09 00:01:58 - Task created: d
-2024-05-09 00:01:59 - Notes updated for d
-2024-05-09 00:02:06 - Notes updated for a
-2024-05-09 00:02:09 - Notes updated for d
-2024-05-09 00:02:16 - Notes updated for d
+2024-05-09 00:08:48 - Task created: a
+2024-05-09 00:08:49 - Notes updated for a
+2024-05-09 00:08:52 - Notes updated for a
+2024-05-09 00:09:02 - Notes updated for a
+2024-05-09 00:09:05 - Notes updated for a
+2024-05-09 00:09:06 - Notes updated for a
+2024-05-09 00:09:37 - Notes updated for a
+2024-05-09 00:09:39 - Notes updated for a
+2024-05-09 00:09:39 - Notes updated for a
+2024-05-09 00:09:40 - Notes updated for a
+2024-05-09 00:09:55 - Notes updated for a
+2024-05-09 00:10:01 - Subtask added to a: fd
+2024-05-09 00:10:03 - Subtask added to fd: f
+2024-05-09 00:10:06 - Subtask added to f: g
+2024-05-09 00:10:07 - Notes updated for f
+2024-05-09 00:10:14 - Notes updated for f
+2024-05-09 00:10:27 - Notes updated for f
+2024-05-09 00:10:36 - Notes updated for g
+2024-05-09 00:10:37 - Notes updated for f
+2024-05-09 00:10:52 - Notes updated for g
+2024-05-09 00:11:02 - Notes updated for g
+2024-05-09 00:11:04 - Notes updated for g
+2024-05-09 00:11:07 - Notes updated for g
