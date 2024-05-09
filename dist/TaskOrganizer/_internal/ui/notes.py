@@ -2,8 +2,11 @@
 
 import tkinter as tk
 from tkinter import ttk
-from markdown2 import markdown
 from utils.logger import log_history
+import webbrowser
+import os
+import tempfile
+from mistletoe import markdown
 
 
 class NotesEditor:
@@ -15,7 +18,7 @@ class NotesEditor:
         # Criar janela flutuante
         self.notes_window = tk.Toplevel(parent)
         self.notes_window.title(f"Notes for {task.title}")
-        self.notes_window.geometry("600x400")
+        self.notes_window.geometry("800x600")
 
         # Frame principal
         main_frame = ttk.Frame(self.notes_window, padding=(10, 10))
@@ -26,30 +29,78 @@ class NotesEditor:
         self.text_editor.grid(row=0, column=0, sticky="nsew")
         self.text_editor.insert(tk.END, task.notes)
 
-        # Botão para salvar e renderizar Markdown
-        render_button = ttk.Button(main_frame, text="Save & Render", command=self.save_and_render)
+        # Botão para salvar e renderizar Markdown no navegador
+        render_button = ttk.Button(main_frame, text="Save & View", command=self.save_and_view)
         render_button.grid(row=1, column=0, pady=5, sticky="ew")
-
-        # Visualizador de Markdown
-        self.markdown_viewer = tk.Text(main_frame, state=tk.DISABLED, wrap=tk.WORD)
-        self.markdown_viewer.grid(row=2, column=0, sticky="nsew")
 
         # Ajuste das proporções dos elementos
         main_frame.rowconfigure(0, weight=1)
-        main_frame.rowconfigure(2, weight=1)
         main_frame.columnconfigure(0, weight=1)
 
-        self.save_and_render()
-
-    def save_and_render(self):
+    def save_and_view(self):
+        # Salvar anotação como Markdown
         self.task.notes = self.text_editor.get("1.0", tk.END).strip()
         self.task.update_date_modified()
         self.save_tasks()
         log_history(self.history_file, f"Notes updated for {self.task.title}")
 
-        # Renderizar Markdown
+        # Converter para HTML usando mistletoe
         rendered_markdown = markdown(self.task.notes)
-        self.markdown_viewer.config(state=tk.NORMAL)
-        self.markdown_viewer.delete("1.0", tk.END)
-        self.markdown_viewer.insert(tk.END, rendered_markdown)
-        self.markdown_viewer.config(state=tk.DISABLED)
+
+        # Estilos CSS para renderização
+        styles = """
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                padding: 10px;
+                margin: 0;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                color: #2c3e50;
+                font-weight: bold;
+            }
+            pre {
+                background-color: #f4f4f4;
+                border-left: 3px solid #ccc;
+                padding: 10px;
+                overflow-x: auto;
+                font-family: Consolas, 'Courier New', monospace;
+            }
+            code {
+                background-color: #f4f4f4;
+                border-radius: 3px;
+                padding: 2px 4px;
+                font-size: 0.9em;
+                font-family: Consolas, 'Courier New', monospace;
+            }
+            ul, ol {
+                margin-left: 20px;
+            }
+            blockquote {
+                margin: 0;
+                padding-left: 10px;
+                border-left: 3px solid #ccc;
+                color: #555;
+            }
+            a {
+                color: #3498db;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+        """
+
+        # HTML final com estilos embutidos
+        html_content = f"<html><head>{styles}</head><body>{rendered_markdown}</body></html>"
+
+        # Salvar HTML em um arquivo temporário
+        temp_html_file = tempfile.NamedTemporaryFile(delete=False, suffix=".html")
+        with open(temp_html_file.name, "w", encoding="utf-8") as file:
+            file.write(html_content)
+
+        # Abrir o arquivo HTML no navegador padrão
+        webbrowser.open(f"file://{os.path.abspath(temp_html_file.name)}")
