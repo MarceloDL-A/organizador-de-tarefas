@@ -9,11 +9,13 @@ from utils.logger import log_history
 
 
 class TaskList:
-    def __init__(self, parent, tasks, history_file, save_tasks_callback):
+    def __init__(self, parent, tasks, history_file, save_tasks_callback, completed=False, update_callback=None):
         self.parent = parent
         self.tasks = tasks
         self.history_file = history_file
         self.save_tasks = save_tasks_callback
+        self.completed = completed
+        self.update_callback = update_callback
 
         # Frame que contém todas as tarefas
         self.task_frame = ttk.Frame(self.parent, padding="10 10 10 10")
@@ -26,7 +28,16 @@ class TaskList:
             widget.destroy()
 
         for task in self.tasks:
-            self._create_task_frame(self.task_frame, task)
+            if self._should_display_task(task):
+                self._create_task_frame(self.task_frame, task)
+
+    def _should_display_task(self, task):
+        if self.completed:
+            return task.is_done and self._are_all_subtasks_done(task)
+        return not task.is_done or not self._are_all_subtasks_done(task)
+
+    def _are_all_subtasks_done(self, task):
+        return all(self._are_all_subtasks_done(subtask) for subtask in task.subtasks) if task.subtasks else task.is_done
 
     def _create_task_frame(self, parent_frame, task, indent=0):
         task_frame = ttk.Frame(parent_frame, relief=tk.RAISED, borderwidth=1)
@@ -76,9 +87,11 @@ class TaskList:
     def toggle_task(self, task):
         task.is_done = not task.is_done
         task.update_date_modified()
-        self.update_task_list()
         self.save_tasks()
         log_history(self.history_file, f"Task {'completed' if task.is_done else 'reopened'}: {task.title}")
+
+        if self.update_callback:
+            self.update_callback()
 
     def add_subtask(self, parent_task):
         subtask_title = simpledialog.askstring("New Subtask", "Enter subtask title:")
@@ -87,9 +100,11 @@ class TaskList:
         subtask = Task(subtask_title)
         parent_task.subtasks.append(subtask)
         parent_task.update_date_modified()
-        self.update_task_list()
         self.save_tasks()
         log_history(self.history_file, f"Subtask added to {parent_task.title}: {subtask_title}")
+
+        if self.update_callback:
+            self.update_callback()
 
     def delete_task(self, task, parent_task=None):
         if parent_task:
@@ -99,5 +114,8 @@ class TaskList:
         else:
             self.tasks.remove(task)
             log_history(self.history_file, f"Task deleted: {task.title}")
-        self.update_task_list()
+
         self.save_tasks()
+
+        if self.update_callback:
+            self.update_callback()

@@ -1,14 +1,22 @@
-    ORGANIZADOR_DE_TAREFAS/
-    ├── main.py
+    Organizador de Tarefas/
+    ├── build/
+    │   └── TaskOrganizer/
+    ├── dist/
+    │   └── TaskOrganizer/
     ├── models/
     │   └── task.py
     ├── ui/
     │   ├── app.py
-    │   ├── task_list.py
-    │   └── notes.py
-    └── utils/
-        ├── logger.py
-        └── tooltip.py
+    │   ├── notes.py
+    │   └── task_list.py
+    ├── utils/
+    │   ├── logger.py
+    │   └── tooltip.py
+    ├── main.py
+    ├── TaskOrganizer.spec
+    ├── tasks.json
+    └── task_history.txt
+
 
 
 

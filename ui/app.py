@@ -26,8 +26,20 @@ class TaskOrganizerApp(ThemedTk):
         # Carregar tarefas do arquivo
         self.load_tasks()
 
+        # Notebook para as abas de "Em Aberto" e "Concluídas"
+        self.notebook = ttk.Notebook(self)
+        self.notebook.pack(fill=tk.BOTH, expand=True)
+
+        # Criar as abas
+        self.frame_open_tasks = ttk.Frame(self.notebook, padding="10 10 10 10")
+        self.frame_completed_tasks = ttk.Frame(self.notebook, padding="10 10 10 10")
+
+        self.notebook.add(self.frame_open_tasks, text="Em Aberto")
+        self.notebook.add(self.frame_completed_tasks, text="Concluídas")
+
         # Gerenciar a lista de tarefas
-        self.task_list = TaskList(self, self.tasks, self.history_file, self.save_tasks)
+        self.task_list_open = TaskList(self.frame_open_tasks, self.tasks, self.history_file, self.save_tasks, completed=False, update_callback=self.update_task_lists)
+        self.task_list_completed = TaskList(self.frame_completed_tasks, self.tasks, self.history_file, self.save_tasks, completed=True, update_callback=self.update_task_lists)
 
         # Interface de entrada para novas tarefas
         task_entry_frame = ttk.Frame(self)
@@ -40,6 +52,8 @@ class TaskOrganizerApp(ThemedTk):
         self.add_task_button = ttk.Button(self, text="Add Task", command=self.add_task)
         self.add_task_button.pack(pady=5)
 
+        self.update_task_lists()
+
     def add_task(self):
         task_title = self.task_entry.get()
         if not task_title:
@@ -48,9 +62,13 @@ class TaskOrganizerApp(ThemedTk):
         task = Task(task_title)
         self.tasks.append(task)
         self.task_entry.delete(0, tk.END)
-        self.task_list.update_task_list()
+        self.update_task_lists()
         self.save_tasks()
         log_history(self.history_file, f"Task created: {task_title}")
+
+    def update_task_lists(self):
+        self.task_list_open.update_task_list()
+        self.task_list_completed.update_task_list()
 
     def save_tasks(self):
         try:
@@ -78,3 +96,11 @@ class TaskOrganizerApp(ThemedTk):
             messagebox.showerror("Error", f"Failed to load tasks: {e}")
             log_history(self.history_file, f"Error loading tasks: {e}")
             self.tasks = []
+
+def main():
+    app = TaskOrganizerApp(base_dir=os.path.dirname(__file__))
+    app.mainloop()
+
+
+if __name__ == "__main__":
+    main()

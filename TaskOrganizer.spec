@@ -7,12 +7,13 @@ block_cipher = None
 from PyInstaller.utils.hooks import collect_submodules
 
 # Coleta todos os submódulos
+models_submodules = collect_submodules('models')
 ui_submodules = collect_submodules('ui')
 utils_submodules = collect_submodules('utils')
 
 a = Analysis(
     ['main.py'],
-    pathex=[],
+    pathex=['.'],
     binaries=[],
     datas=[
         ('models/*.py', 'models'),
@@ -24,6 +25,7 @@ a = Analysis(
     hiddenimports=[
         'ttkthemes',
         'mistletoe',
+        *models_submodules,
         *ui_submodules,
         *utils_submodules
     ],
