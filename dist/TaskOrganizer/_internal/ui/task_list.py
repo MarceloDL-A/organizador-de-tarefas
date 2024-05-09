@@ -1,7 +1,7 @@
 # ui/task_list.py
 
 import tkinter as tk
-from tkinter import ttk, simpledialog
+from tkinter import ttk, simpledialog, messagebox
 from models.task import Task
 from ui.notes import NotesEditor
 from utils.tooltip import Tooltip
@@ -39,7 +39,7 @@ class TaskList:
     def _are_all_subtasks_done(self, task):
         return all(self._are_all_subtasks_done(subtask) for subtask in task.subtasks) if task.subtasks else task.is_done
 
-    def _create_task_frame(self, parent_frame, task, indent=0):
+    def _create_task_frame(self, parent_frame, task, parent_task=None, indent=0):
         task_frame = ttk.Frame(parent_frame, relief=tk.RAISED, borderwidth=1)
         task_frame.pack(fill=tk.X, padx=(indent, 5), pady=5)
 
@@ -69,7 +69,7 @@ class TaskList:
         delete_task_button = ttk.Button(
             task_frame,
             text="Delete",
-            command=lambda t=task: self.delete_task(t)
+            command=lambda t=task, pt=parent_task: self.delete_task(t, pt)
         )
         delete_task_button.pack(side=tk.RIGHT, padx=5, pady=5)
 
@@ -82,7 +82,7 @@ class TaskList:
             progress_bar.pack(side=tk.RIGHT, padx=10)
 
             for subtask in task.subtasks:
-                self._create_task_frame(parent_frame, subtask, indent + 20)
+                self._create_task_frame(parent_frame, subtask, parent_task=task, indent=indent + 20)
 
     def toggle_task(self, task):
         task.is_done = not task.is_done
@@ -107,6 +107,10 @@ class TaskList:
             self.update_callback()
 
     def delete_task(self, task, parent_task=None):
+        confirm = messagebox.askyesno("Delete Task", f"Are you sure you want to delete '{task.title}'?")
+        if not confirm:
+            return
+
         if parent_task:
             parent_task.subtasks.remove(task)
             parent_task.update_date_modified()

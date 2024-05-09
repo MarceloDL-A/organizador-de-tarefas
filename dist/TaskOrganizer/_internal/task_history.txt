@@ -1,15 +1,25 @@
 2024-05-08 22:26:23 - Error loading tasks: Expecting value: line 1 column 1 (char 0)
 2024-05-08 22:30:51 - Error loading tasks: Expecting value: line 1 column 1 (char 0)
 2024-05-08 22:30:51 - Error: Unhandled Exception: NULL main window
-2024-05-09 16:30:18 - Task created: a
-2024-05-09 16:30:20 - Task completed: a
-2024-05-09 16:30:23 - Task reopened: a
-2024-05-09 16:30:30 - Subtask added to a: s
-2024-05-09 16:30:33 - Task completed: a
-2024-05-09 16:30:34 - Task completed: s
-2024-05-09 16:30:36 - Task reopened: s
-2024-05-09 16:30:49 - Task created: f
-2024-05-09 16:30:58 - Task completed: f
-2024-05-09 16:31:08 - Task reopened: f
-2024-05-09 16:31:23 - Notes updated for f
-2024-05-09 16:31:46 - Notes updated for f
+2024-05-09 16:40:13 - Task created: a
+2024-05-09 16:40:16 - Task created: b
+2024-05-09 16:40:19 - Task created: v
+2024-05-09 16:40:25 - Subtask added to v: d
+2024-05-09 16:40:30 - Subtask deleted from v: d
+2024-05-09 16:40:33 - Task deleted: v
+2024-05-09 16:40:39 - Task completed: b
+2024-05-09 16:40:45 - Task created: h
+2024-05-09 16:40:47 - Task created: k
+2024-05-09 16:40:51 - Task completed: h
+2024-05-09 16:40:53 - Task completed: k
+2024-05-09 16:41:00 - Subtask added to b: a
+2024-05-09 16:41:13 - Task created: fadsa
+2024-05-09 16:41:15 - Task completed: fadsa
+2024-05-09 16:41:20 - Subtask added to fadsa: fasdfas
+2024-05-09 16:41:27 - Task completed: fasdfas
+2024-05-09 16:41:28 - Task completed: a
+2024-05-09 16:41:30 - Task completed: a
+2024-05-09 16:41:34 - Task reopened: fasdfas
+2024-05-09 16:41:35 - Task reopened: h
+2024-05-09 16:41:42 - Subtask deleted from fadsa: fasdfas
+2024-05-09 16:41:44 - Task deleted: h
