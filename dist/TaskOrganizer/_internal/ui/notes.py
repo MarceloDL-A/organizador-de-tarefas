@@ -51,11 +51,12 @@ class NotesEditor:
         styles = """
         <style>
             body {
-                font-family: Arial, sans-serif;
+                font-family: "Open Sans", Arial, sans-serif;
                 line-height: 1.6;
-                color: #333;
+                color: #1c1c1c;
                 padding: 10px;
                 margin: 0;
+                background-color: #f8f9fa;
             }
             h1, h2, h3, h4, h5, h6 {
                 color: #2c3e50;
