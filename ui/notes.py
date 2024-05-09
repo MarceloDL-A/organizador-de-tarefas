@@ -17,18 +17,27 @@ class NotesEditor:
         self.notes_window.title(f"Notes for {task.title}")
         self.notes_window.geometry("600x400")
 
+        # Frame principal
+        main_frame = ttk.Frame(self.notes_window, padding=(10, 10))
+        main_frame.pack(fill=tk.BOTH, expand=True)
+
         # Caixa de texto para edição de anotações
-        self.text_editor = tk.Text(self.notes_window)
-        self.text_editor.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        self.text_editor = tk.Text(main_frame, height=10)
+        self.text_editor.grid(row=0, column=0, sticky="nsew")
         self.text_editor.insert(tk.END, task.notes)
 
         # Botão para salvar e renderizar Markdown
-        render_button = ttk.Button(self.notes_window, text="Save & Render", command=self.save_and_render)
-        render_button.pack(pady=5)
+        render_button = ttk.Button(main_frame, text="Save & Render", command=self.save_and_render)
+        render_button.grid(row=1, column=0, pady=5, sticky="ew")
 
         # Visualizador de Markdown
-        self.markdown_viewer = tk.Text(self.notes_window, state=tk.DISABLED, wrap=tk.WORD)
-        self.markdown_viewer.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        self.markdown_viewer = tk.Text(main_frame, state=tk.DISABLED, wrap=tk.WORD)
+        self.markdown_viewer.grid(row=2, column=0, sticky="nsew")
+
+        # Ajuste das proporções dos elementos
+        main_frame.rowconfigure(0, weight=1)
+        main_frame.rowconfigure(2, weight=1)
+        main_frame.columnconfigure(0, weight=1)
 
         self.save_and_render()
 

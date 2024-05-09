@@ -2,36 +2,9 @@
     {
         "title": "a",
         "is_done": false,
-        "date_created": "2024-05-09 00:08:48",
-        "date_modified": "2024-05-09 00:10:01",
-        "notes": "```python\nprint(\"hello\")\n```",
-        "subtasks": [
-            {
-                "title": "fd",
-                "is_done": false,
-                "date_created": "2024-05-09 00:10:01",
-                "date_modified": "2024-05-09 00:10:03",
-                "notes": "",
-                "subtasks": [
-                    {
-                        "title": "f",
-                        "is_done": false,
-                        "date_created": "2024-05-09 00:10:03",
-                        "date_modified": "2024-05-09 00:10:37",
-                        "notes": "# ui/notes.py\n\nimport tkinter as tk\nfrom tkinter import ttk\nfrom markdown2 import markdown\nfrom utils.logger import log_history\n\n\nclass NotesEditor:\n    def __init__(self, parent, task, save_tasks_callback, history_file):\n        self.task = task\n        self.save_tasks = save_tasks_callback\n        self.history_file = history_file\n\n        # Criar janela flutuante\n        self.notes_window = tk.Toplevel(parent)\n        self.notes_window.title(f\"Notes for {task.title}\")\n        self.notes_window.geometry(\"600x400\")\n\n        # Caixa de texto para edi\u00e7\u00e3o de anota\u00e7\u00f5es\n        self.text_editor = tk.Text(self.notes_window)\n        self.text_editor.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)\n        self.text_editor.insert(tk.END, task.notes)\n\n        # Bot\u00e3o para salvar e renderizar Markdown\n        render_button = ttk.Button(self.notes_window, text=\"Save & Render\", command=self.save_and_render)\n        render_button.pack(pady=5)\n\n        # Visualizador de Markdown\n        self.markdown_viewer = tk.Text(self.notes_window, state=tk.DISABLED, wrap=tk.WORD)\n        self.markdown_viewer.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)\n\n        self.save_and_render()\n\n    def save_and_render(self):\n        self.task.notes = self.text_editor.get(\"1.0\", tk.END).strip()\n        self.task.update_date_modified()\n        self.save_tasks()\n        log_history(self.history_file, f\"Notes updated for {self.task.title}\")\n\n        # Renderizar Markdown\n        rendered_markdown = markdown(self.task.notes)\n        self.markdown_viewer.config(state=tk.NORMAL)\n        self.markdown_viewer.delete(\"1.0\", tk.END)\n        self.markdown_viewer.insert(tk.END, rendered_markdown)\n        self.markdown_viewer.config(state=tk.DISABLED)",
-                        "subtasks": [
-                            {
-                                "title": "g",
-                                "is_done": false,
-                                "date_created": "2024-05-09 00:10:06",
-                                "date_modified": "2024-05-09 00:11:07",
-                                "notes": "",
-                                "subtasks": []
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+        "date_created": "2024-05-09 12:06:06",
+        "date_modified": "2024-05-09 12:07:39",
+        "notes": "# Exemplo de C\u00f3digo Python na Anota\u00e7\u00e3o\n\n```python\n# Fun\u00e7\u00e3o simples para calcular o quadrado de um n\u00famero\ndef square(n):\n    return n * n\n\nprint(square(5))  # Sa\u00edda: 25",
+        "subtasks": []
     }
 ]
