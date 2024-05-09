@@ -3,10 +3,13 @@
     ├── models/
     │   └── task.py
     ├── ui/
-    │   └── app.py
+    │   ├── app.py
+    │   ├── task_list.py
+    │   └── notes.py
     └── utils/
         ├── logger.py
         └── tooltip.py
+
 
 
 

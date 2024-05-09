@@ -22,6 +22,7 @@ a = Analysis(
     ],
     hiddenimports=[
         'ttkthemes',
+        'markdown2',
         *ui_submodules,
         *utils_submodules
     ],

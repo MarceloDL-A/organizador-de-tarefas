@@ -2,44 +2,17 @@
     {
         "title": "a",
         "is_done": false,
-        "date_created": "2024-05-08 23:14:51",
-        "date_modified": "2024-05-08 23:15:27",
-        "notes": "sfasfas",
+        "date_created": "2024-05-09 00:01:55",
+        "date_modified": "2024-05-09 00:02:06",
+        "notes": "",
         "subtasks": []
     },
     {
-        "title": "n",
+        "title": "d",
         "is_done": false,
-        "date_created": "2024-05-08 23:15:00",
-        "date_modified": "2024-05-08 23:15:38",
+        "date_created": "2024-05-09 00:01:58",
+        "date_modified": "2024-05-09 00:02:16",
         "notes": "",
-        "subtasks": [
-            {
-                "title": "fasd",
-                "is_done": false,
-                "date_created": "2024-05-08 23:15:38",
-                "date_modified": "2024-05-08 23:15:41",
-                "notes": "",
-                "subtasks": [
-                    {
-                        "title": "fafa",
-                        "is_done": false,
-                        "date_created": "2024-05-08 23:15:41",
-                        "date_modified": "2024-05-08 23:15:44",
-                        "notes": "",
-                        "subtasks": [
-                            {
-                                "title": "fafa",
-                                "is_done": false,
-                                "date_created": "2024-05-08 23:15:44",
-                                "date_modified": "2024-05-08 23:15:44",
-                                "notes": "",
-                                "subtasks": []
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+        "subtasks": []
     }
 ]
